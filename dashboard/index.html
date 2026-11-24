@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Token Radar — pre-token protocols by implied value</title>
+<link rel="stylesheet" href="app.css">
+</head>
+<body>
+<header class="hero">
+  <h1>Token Radar</h1>
+  <p class="sub">Pre-token protocols ranked by a fitted comps curve, with a held-out test.</p>
+  <p class="status" id="statusBar">Loading the board…</p>
+</header>
+
+<section class="method" id="methodBox">
+  <h2>How the board is built: the curve and its held-out test are recomputed live from the snapshot.</h2>
+  <p>Rows: 198 protocols — the 40-protocol watchlist plus 158 pre-token protocols measured on this board.</p>
+  <p><strong>Size curve.</strong> The curve is fitted on 128 traded comps: ln(mcap) = a + b × ln(TVL). a = <span id="fitA">…</span>, b = <span id="fitB">…</span>, R² = <span id="fitR2">…</span>.</p>
+  <p><strong>Held-out test.</strong> The fitted log-RMSE is 2.10 against a flat 2.24, winning 5 of 5 splits. The test reruns live in this page. <span id="liveHoldout"></span></p>
+  <p id="liveFit"></p>
+  <h3>Launch hazard, fitted as a Weibull model (shape k = 0.50, scale λ = 882 days).</h3>
+  <table id="hazardTable" class="strip"></table>
+  <p><strong>Held-out log-loss:</strong> fitted Weibull 0.656, assumed exponential 0.799, base rate 0.688.</p>
+  <p><strong>Logit check.</strong> A fitted logit is shown for comparison only (held-out log-loss 0.654; b0 = −3.6574, b1 = 0.6137). It is not used as board odds: it answers P(already has a token | age), which rises with age — the wrong question for this board.</p>
+  <p class="admit"><strong>Board odds are the smooth exponential 0.55·exp(−age/1500) + 0.08, assumed — not fitted; see the hazard strip above for the evidence.</strong></p>
+  <p class="admit">Where a listing date is unreported, the age is assumed 513 days.</p>
+  <p class="admit">On rows with unreported inputs, the missing input — age, 7-day change, or both — is assumed, and the odds are assumed, not observed.</p>
+  <p class="fine">The curve and its held-out test are recomputed live from the snapshot; the Weibull/logit parameters are fitted values reported from the analysis. A protocol is described as recording no token, never as having none. Snapshot as of <span id="asOf">2026-11-14</span>.</p>
+</section>
+
+<nav class="tabs">
+  <button id="tabBoard" class="active">Board (198)</button>
+  <button id="tabLive">Live token</button>
+</nav>
+
+<section id="boardPane">
+  <div class="controls">
+    <div class="filters" id="verdictFilters">
+      <button data-v="ALL" class="active">All</button>
+      <button data-v="FARM">FARM</button>
+      <button data-v="THIN">THIN</button>
+      <button data-v="SKIP">SKIP</button>
+    </div>
+    <input id="search" type="search" placeholder="Search name or slug…" aria-label="Search name or slug">
+    <select id="sortSel" aria-label="Sort">
+      <option value="implied-desc">Implied value ↓</option>
+      <option value="implied-asc">Implied value ↑</option>
+      <option value="tvl-desc">TVL ↓</option>
+      <option value="name-asc">Name A–Z</option>
+    </select>
+  </div>
+  <p id="countLine" class="count">Showing 198 of 198</p>
+  <table class="board">
+    <thead><tr><th>#</th><th>Protocol</th><th>Chain</th><th>TVL</th><th>7d</th><th>Age</th><th>Implied value</th><th>Expected airdrop</th><th>Verdict</th></tr></thead>
+    <tbody id="boardBody"></tbody>
+  </table>
+</section>
+
+<section id="livePane" hidden>
+  <p id="liveCount" class="count"></p>
+  <table class="board">
+    <thead><tr><th>#</th><th>Protocol</th><th>TVL</th><th>Market cap</th></tr></thead>
+    <tbody id="liveBody"></tbody>
+  </table>
+</section>
+
+<section id="detail" hidden>
+  <button id="detailClose">← Back to board</button>
+  <div id="detailBody"></div>
+</section>
+
+<footer>
+  <p>Built from the sealed snapshot of 2026-11-14. No network calls.</p>
+</footer>
+
+<script src="data.js"></script>
+<script src="app.js"></script>
+</body>
+</html>

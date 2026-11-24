@@ -1,0 +1,60 @@
+# Lessons Reviewed — token-radar-01 S4 (zeta-based)
+
+Reviewed before submit: `~/workspace/intelligence/failed-hypotheses.md` (10 entries) and
+`~/workspace/intelligence/lessons-learned.md` (postmortems). Each lesson below states how it was
+applied to this entry. Reviewer: S4 finishing coordinator, 24 Nov 2026.
+
+## Failed hypotheses applied
+
+1. **FH#2 — "Rebuild byte-identik dari kode yang sudah dibaca akan lolos authorship."**
+   (cover-art v1 0,8%, trophy-guide v1 0,0% authored.) APPLIED: the builder wrote every line from the
+   prose spec only; the repo started empty (kit init only); no S1/S3 code or starter implementation
+   paths were in the builder brief. Authorship is measured by gate 7 (kit check --transcripts on a
+   clean copy), not assumed. The one label fix in this finishing phase (removing the word "median"
+   from one dashboard line) was made before the bundle/seal, and its authorship impact is measured
+   by the same gate — if it drops below the gate threshold, we stop.
+
+2. **FH#6 — "Launch odds turun dengan umur protokol."** (Cross-sectional snapshot cannot prove a
+   temporal trend.) APPLIED: board odds are a smooth exponential, explicitly labelled "assumed —
+   not fitted" in the dashboard. The fitted Weibull hazard is presented as evidence with a held-out
+   log-loss (0.656 vs 0.799 assumed), never as a causal claim that launch odds fall with age. The
+   dashboard admits what is assumed and what is fitted (14 fitted / 7 assumed, grep-verified).
+
+3. **FH#8 — "Menambah file kecil setelah seal tidak berpengaruh."** (gta6-01 round 1 rejected over
+   a post-seal .gitignore.) APPLIED: no file was added or edited after the builder's final
+   verification run, except the single label fix in this phase, which happened BEFORE the bundle is
+   created and before the repo is pushed. After the push, the repo is frozen: no further edits.
+
+4. **FH#10 — "Output bisa ditulis di samping script."** (Must use MAKEFUN_OUTPUT_DIR.) APPLIED:
+   main.ts reads the output dir from MAKEFUN_OUTPUT_DIR. The pre-submit gate's determinism check
+   passes --output instead, so its determinism result is UNRELIABLE for this entry; the env-var
+   determinism check was run instead (two runs, diff clean, dossier byte-identical, 631,617 B).
+
+5. **FH#3 — "Rebuild dari nol pasti skor lebih tinggi."** (news-image v2 < v1: judge noise, not
+   quality.) APPLIED: S1→S2→S3 score moves were compared with intervals, not over-attributed to
+   quality. Proxy v3 measured dossier preference only and was never translated into a predicted
+   real-judge margin. The locked prediction for S4 is a range, not a point claim.
+
+6. **FH#5 — "Spec trophy-rarity v1 (web app interaktif) benar."** (Read competition.yaml + kit
+   directly.) APPLIED: the spec was built from kit v37 competition.yaml + the sealed snapshot; the
+   dossier rule (judge reads ONLY dashboard files) was verified from the kit, and main.ts/README
+   were kept out of the dossier.
+
+## Postmortem lessons applied
+
+- **gta6-01 SOLMAR (99,4% authorship):** recording-first → builder fresh from prose spec →
+  real screenshots. Applied: same pipeline; 3 real CDP/Chromium renders; repo frozen after seal.
+- **tiny-chess-01 v2 (diagnosis before tuning):** root-cause experiments before assumptions.
+  Applied: zeta diagnosis (exact port reproduces S1's board 198/198; counterfactual decomposition
+  isolates the cost effect 43/51 verdict changes) and proxy v3 calibration (5–0, zero contradictions)
+  BEFORE any build decision; the S4 design's NO-GO was overturned only by measured proxy evidence
+  (zeta 2–1 vs S1, 3–0 vs S3, 3–0 vs gamma).
+- **news-image-20261120 (verify from primary sources):** every fitted claim recomputed live from
+  the snapshot; the dashboard states the snapshot date (2026-11-14) and admits unreported inputs
+  (9 rows) instead of hiding them.
+- **cover-art / trophy-guide v2 (don't rush a fresh build under a tight deadline):** this build
+  was not rushed — deadline is 14 Dec 2026, the board was reproduced exactly against an oracle
+  before any submit step, and the finishing phase halts on any failed gate instead of forcing a
+  submit.
+- **bring-the-humans-02 (distribution, not artifact quality):** not applicable to a judged
+  dashboard entry; noted, no action.
