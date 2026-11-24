@@ -1,5 +1,9 @@
 # Token Radar S4 (zeta-based)
 
+[![make.fun · token-radar-01](https://make.fun/badge/token-radar-01.svg)](https://make.fun/bounty/token-radar-01?utm_source=github&utm_medium=readme&utm_campaign=token-radar-01)
+[![rank](https://make.fun/badge/token-radar-01/bayyubenjamin/token-radar-01-s4/rank.svg)](https://make.fun/bounty/token-radar-01/leaderboard?utm_source=github&utm_medium=readme&utm_campaign=token-radar-01)
+[![reward](https://make.fun/badge/token-radar-01/bayyubenjamin/token-radar-01-s4/reward.svg)](https://make.fun/bounty/token-radar-01?utm_source=github&utm_medium=readme&utm_campaign=token-radar-01)
+
 A program + dashboard that ranks pre-token protocols by implied value.
 `main.ts` reads the sealed snapshot, fits `ln(mcap) = a + b × ln(TVL)` on the
 128 traded comps (a = 6.9646, b = 0.5223, R² = 0.194), and writes a 198-row
